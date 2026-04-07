@@ -3,9 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import { fetchClientSummary } from "@/lib/mock-data";
 import {
   severityBadgeClass, riskBadgeClass, riskLabels, severityLabels,
-  timeAgo, formatTimestamp, severityTextClass,
+  timeAgo, formatTimestamp, severityTextClass, scoreColorClass, scoreLabel, scoreProgressColor,
 } from "@/lib/soc-utils";
-import { ArrowLeft, AlertTriangle, Monitor, Bug, Clock } from "lucide-react";
+import { ArrowLeft, AlertTriangle, Monitor, Bug, Clock, ShieldCheck } from "lucide-react";
 
 const ClientDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -39,6 +39,34 @@ const ClientDetail = () => {
           <span className={`text-xs px-2 py-0.5 rounded font-mono ${riskBadgeClass(client.riskLevel)}`}>
             Risco {riskLabels[client.riskLevel]}
           </span>
+        </div>
+      </div>
+
+      {/* Security Score */}
+      <div>
+        <h2 className="text-sm font-medium text-muted-foreground mb-3 flex items-center gap-2">
+          <ShieldCheck className="h-4 w-4" /> Security Score
+        </h2>
+        <div className="soc-card flex items-center gap-6">
+          <div className="text-center">
+            <div className={`text-4xl font-mono font-bold ${scoreColorClass(client.securityScore)}`}>
+              {client.securityScore}
+            </div>
+            <div className={`text-xs mt-1 font-medium ${scoreColorClass(client.securityScore)}`}>
+              {scoreLabel(client.securityScore)}
+            </div>
+          </div>
+          <div className="flex-1 space-y-2">
+            <div className="w-full h-3 bg-secondary rounded-full overflow-hidden">
+              <div
+                className={`h-full rounded-full transition-all ${scoreProgressColor(client.securityScore)}`}
+                style={{ width: `${client.securityScore}%` }}
+              />
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Baseado na proporção de vulnerabilidades mitigadas e severidade das abertas
+            </p>
+          </div>
         </div>
       </div>
 

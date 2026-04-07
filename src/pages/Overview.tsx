@@ -2,8 +2,8 @@ import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { fetchClients } from "@/lib/mock-data";
-import { riskBadgeClass, riskLabels } from "@/lib/soc-utils";
-import { Shield, AlertTriangle, Monitor, Bug } from "lucide-react";
+import { riskBadgeClass, riskLabels, scoreColorClass, scoreLabel, scoreProgressColor } from "@/lib/soc-utils";
+import { Shield, AlertTriangle, Monitor, Bug, ShieldCheck } from "lucide-react";
 import { TablePagination } from "@/components/TablePagination";
 
 const Overview = () => {
@@ -58,6 +58,16 @@ const Overview = () => {
               </div>
 
               <div className="flex items-center gap-8 text-sm">
+                <div className="flex items-center gap-2" title={`Score: ${client.securityScore} - ${scoreLabel(client.securityScore)}`}>
+                  <ShieldCheck className={`h-4 w-4 ${scoreColorClass(client.securityScore)}`} />
+                  <div className="flex items-center gap-2">
+                    <span className={`font-mono font-semibold ${scoreColorClass(client.securityScore)}`}>{client.securityScore}</span>
+                    <div className="w-16 h-1.5 bg-secondary rounded-full overflow-hidden">
+                      <div className={`h-full rounded-full ${scoreProgressColor(client.securityScore)}`} style={{ width: `${client.securityScore}%` }} />
+                    </div>
+                  </div>
+                </div>
+
                 <div className="flex items-center gap-2" title="Alertas críticos (24h)">
                   <AlertTriangle className="h-4 w-4 severity-critical" />
                   <span className="font-mono severity-critical font-semibold">{client.criticalAlerts24h}</span>

@@ -70,3 +70,25 @@ export const severityLabels: Record<Severity, string> = {
   medium: "Médio",
   low: "Baixo",
 };
+
+export function scoreColorClass(score: number): string {
+  if (score >= 80) return "text-green-400";
+  if (score >= 60) return "text-yellow-400";
+  if (score >= 40) return "text-orange-400";
+  return "text-red-400";
+}
+
+export function scoreLabel(score: number): string {
+  if (score >= 80) return "Excelente";
+  if (score >= 60) return "Bom";
+  if (score >= 40) return "Regular";
+  if (score >= 20) return "Ruim";
+  return "Crítico";
+}
+
+export function scoreProgressColor(score: number): string {
+  if (score >= 80) return "bg-green-500";
+  if (score >= 60) return "bg-yellow-500";
+  if (score >= 40) return "bg-orange-500";
+  return "bg-red-500";
+}
