@@ -1,4 +1,5 @@
-import { Shield, AlertTriangle, Monitor, Bug, LayoutDashboard, Menu } from "lucide-react";
+import { AlertTriangle, Monitor, Bug, LayoutDashboard } from "lucide-react";
+import logo from "@/assets/logo.png";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import {
