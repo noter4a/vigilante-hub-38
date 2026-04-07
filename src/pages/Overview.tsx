@@ -1,8 +1,10 @@
+import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { fetchClients } from "@/lib/mock-data";
 import { riskBadgeClass, riskLabels } from "@/lib/soc-utils";
 import { Shield, AlertTriangle, Monitor, Bug } from "lucide-react";
+import { TablePagination } from "@/components/TablePagination";
 
 const Overview = () => {
   const navigate = useNavigate();
@@ -10,6 +12,15 @@ const Overview = () => {
     queryKey: ["clients"],
     queryFn: fetchClients,
   });
+
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(20);
+
+  const paged = useMemo(() => {
+    if (!clients) return [];
+    const start = (page - 1) * pageSize;
+    return clients.slice(start, start + pageSize);
+  }, [clients, page, pageSize]);
 
   if (isLoading) {
     return (
@@ -29,7 +40,7 @@ const Overview = () => {
       </div>
 
       <div className="grid gap-4">
-        {clients?.map((client) => (
+        {paged.map((client) => (
           <div
             key={client.id}
             onClick={() => navigate(`/clients/${client.id}`)}
@@ -69,6 +80,16 @@ const Overview = () => {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="soc-card p-0">
+        <TablePagination
+          totalItems={clients?.length ?? 0}
+          pageSize={pageSize}
+          currentPage={page}
+          onPageChange={setPage}
+          onPageSizeChange={setPageSize}
+        />
       </div>
     </div>
   );

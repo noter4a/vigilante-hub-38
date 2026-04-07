@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchVulnerabilities, fetchClients } from "@/lib/mock-data";
 import { severityBadgeClass, vulnStatusBadgeClass, severityLabels } from "@/lib/soc-utils";
+import { TablePagination } from "@/components/TablePagination";
 import type { Severity } from "@/types/api";
 
 const Vulnerabilities = () => {
@@ -11,6 +12,8 @@ const Vulnerabilities = () => {
   const [clientFilter, setClientFilter] = useState("");
   const [severityFilter, setSeverityFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(20);
 
   const filtered = useMemo(() => {
     if (!vulns) return [];
@@ -21,6 +24,13 @@ const Vulnerabilities = () => {
       return true;
     });
   }, [vulns, clientFilter, severityFilter, statusFilter]);
+
+  const paged = useMemo(() => {
+    const start = (page - 1) * pageSize;
+    return filtered.slice(start, start + pageSize);
+  }, [filtered, page, pageSize]);
+
+  useMemo(() => { setPage(1); }, [clientFilter, severityFilter, statusFilter]);
 
   if (isLoading) {
     return <div className="flex items-center justify-center h-64"><div className="text-muted-foreground">Carregando vulnerabilidades...</div></div>;
@@ -69,7 +79,7 @@ const Vulnerabilities = () => {
             </tr>
           </thead>
           <tbody>
-            {filtered.map((vuln) => (
+            {paged.map((vuln) => (
               <tr key={vuln.id}>
                 <td className="font-mono text-xs text-primary">{vuln.cve}</td>
                 <td>
@@ -89,6 +99,13 @@ const Vulnerabilities = () => {
             ))}
           </tbody>
         </table>
+        <TablePagination
+          totalItems={filtered.length}
+          pageSize={pageSize}
+          currentPage={page}
+          onPageChange={setPage}
+          onPageSizeChange={setPageSize}
+        />
       </div>
     </div>
   );

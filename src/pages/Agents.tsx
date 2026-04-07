@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchAgents, fetchClients } from "@/lib/mock-data";
 import { agentStatusClass, formatTimestamp, timeAgo } from "@/lib/soc-utils";
+import { TablePagination } from "@/components/TablePagination";
 
 const Agents = () => {
   const { data: agents, isLoading } = useQuery({ queryKey: ["agents"], queryFn: fetchAgents });
@@ -9,6 +10,8 @@ const Agents = () => {
 
   const [clientFilter, setClientFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(20);
 
   const filtered = useMemo(() => {
     if (!agents) return [];
@@ -18,6 +21,13 @@ const Agents = () => {
       return true;
     });
   }, [agents, clientFilter, statusFilter]);
+
+  const paged = useMemo(() => {
+    const start = (page - 1) * pageSize;
+    return filtered.slice(start, start + pageSize);
+  }, [filtered, page, pageSize]);
+
+  useMemo(() => { setPage(1); }, [clientFilter, statusFilter]);
 
   if (isLoading) {
     return <div className="flex items-center justify-center h-64"><div className="text-muted-foreground">Carregando agentes...</div></div>;
@@ -57,7 +67,7 @@ const Agents = () => {
             </tr>
           </thead>
           <tbody>
-            {filtered.slice(0, 100).map((agent) => (
+            {paged.map((agent) => (
               <tr key={agent.id} className={agent.status === "offline" ? "bg-destructive/5" : ""}>
                 <td>
                   <div className="flex items-center gap-2">
@@ -80,6 +90,13 @@ const Agents = () => {
             ))}
           </tbody>
         </table>
+        <TablePagination
+          totalItems={filtered.length}
+          pageSize={pageSize}
+          currentPage={page}
+          onPageChange={setPage}
+          onPageSizeChange={setPageSize}
+        />
       </div>
     </div>
   );
