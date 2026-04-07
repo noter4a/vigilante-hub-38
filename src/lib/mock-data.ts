@@ -1,12 +1,12 @@
 import type { Client, ClientSummary, Alert, Agent, Vulnerability, Severity } from "@/types/api";
 
 const clients: Client[] = [
-  { id: "c1", name: "Banco Meridional S.A.", riskLevel: "high", criticalAlerts24h: 12, agentsOnline: 45, agentsOffline: 3, criticalVulnerabilities: 28 },
-  { id: "c2", name: "TechCorp Ltda", riskLevel: "medium", criticalAlerts24h: 3, agentsOnline: 120, agentsOffline: 8, criticalVulnerabilities: 15 },
-  { id: "c3", name: "Saúde+", riskLevel: "low", criticalAlerts24h: 0, agentsOnline: 32, agentsOffline: 1, criticalVulnerabilities: 2 },
-  { id: "c4", name: "LogiTrans Transportes", riskLevel: "medium", criticalAlerts24h: 5, agentsOnline: 67, agentsOffline: 12, criticalVulnerabilities: 9 },
-  { id: "c5", name: "EduNet Educação", riskLevel: "high", criticalAlerts24h: 8, agentsOnline: 89, agentsOffline: 15, criticalVulnerabilities: 34 },
-  { id: "c6", name: "Varejo Express", riskLevel: "low", criticalAlerts24h: 1, agentsOnline: 200, agentsOffline: 5, criticalVulnerabilities: 4 },
+  { id: "c1", name: "Banco Meridional S.A.", riskLevel: "high", criticalAlerts24h: 12, agentsOnline: 45, agentsOffline: 3, criticalVulnerabilities: 28, securityScore: 0 },
+  { id: "c2", name: "TechCorp Ltda", riskLevel: "medium", criticalAlerts24h: 3, agentsOnline: 120, agentsOffline: 8, criticalVulnerabilities: 15, securityScore: 0 },
+  { id: "c3", name: "Saúde+", riskLevel: "low", criticalAlerts24h: 0, agentsOnline: 32, agentsOffline: 1, criticalVulnerabilities: 2, securityScore: 0 },
+  { id: "c4", name: "LogiTrans Transportes", riskLevel: "medium", criticalAlerts24h: 5, agentsOnline: 67, agentsOffline: 12, criticalVulnerabilities: 9, securityScore: 0 },
+  { id: "c5", name: "EduNet Educação", riskLevel: "high", criticalAlerts24h: 8, agentsOnline: 89, agentsOffline: 15, criticalVulnerabilities: 34, securityScore: 0 },
+  { id: "c6", name: "Varejo Express", riskLevel: "low", criticalAlerts24h: 1, agentsOnline: 200, agentsOffline: 5, criticalVulnerabilities: 4, securityScore: 0 },
 ];
 
 const alertTypes = [
@@ -114,6 +114,27 @@ function generateVulnerabilities(): Vulnerability[] {
 const allAlerts = generateAlerts();
 const allAgents = generateAgents();
 const allVulnerabilities = generateVulnerabilities();
+
+// Calculate security scores based on vulnerabilities
+function calculateSecurityScore(clientId: string): number {
+  const vulns = allVulnerabilities.filter((v) => v.clientId === clientId);
+  if (vulns.length === 0) return 100;
+  const mitigated = vulns.filter((v) => v.status === "mitigated").length;
+  const total = vulns.length;
+  const mitigationRatio = mitigated / total;
+  // Weight by severity: open critical/high vulns penalize more
+  const openVulns = vulns.filter((v) => v.status === "open");
+  const severityPenalty = openVulns.reduce((acc, v) => {
+    const weights = { critical: 10, high: 6, medium: 3, low: 1 };
+    return acc + weights[v.severity];
+  }, 0);
+  const maxPenalty = total * 10;
+  const penaltyRatio = Math.min(severityPenalty / maxPenalty, 1);
+  return Math.round(Math.max(0, Math.min(100, mitigationRatio * 50 + (1 - penaltyRatio) * 50)));
+}
+
+// Apply scores to clients
+clients.forEach((c) => { c.securityScore = calculateSecurityScore(c.id); });
 
 // Simulated API functions
 const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));
