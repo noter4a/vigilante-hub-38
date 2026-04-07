@@ -5,6 +5,7 @@ import {
   severityBadgeClass, statusBadgeClass, statusLabels,
   severityLabels, formatTimestamp,
 } from "@/lib/soc-utils";
+import { TablePagination } from "@/components/TablePagination";
 import type { Severity, AlertStatus } from "@/types/api";
 
 const Alerts = () => {
@@ -14,6 +15,8 @@ const Alerts = () => {
   const [clientFilter, setClientFilter] = useState("");
   const [severityFilter, setSeverityFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(20);
 
   const filtered = useMemo(() => {
     if (!alerts) return [];
@@ -24,6 +27,14 @@ const Alerts = () => {
       return true;
     });
   }, [alerts, clientFilter, severityFilter, statusFilter]);
+
+  const paged = useMemo(() => {
+    const start = (page - 1) * pageSize;
+    return filtered.slice(start, start + pageSize);
+  }, [filtered, page, pageSize]);
+
+  // Reset page when filters change
+  useMemo(() => { setPage(1); }, [clientFilter, severityFilter, statusFilter]);
 
   if (isLoading) {
     return <div className="flex items-center justify-center h-64"><div className="text-muted-foreground">Carregando alertas...</div></div>;
@@ -36,7 +47,6 @@ const Alerts = () => {
         <p className="text-muted-foreground text-sm mt-1">{filtered.length} alertas encontrados</p>
       </div>
 
-      {/* Filters */}
       <div className="flex flex-wrap gap-3">
         <select value={clientFilter} onChange={(e) => setClientFilter(e.target.value)}
           className="bg-secondary text-secondary-foreground border border-border rounded px-3 py-1.5 text-sm">
@@ -61,7 +71,6 @@ const Alerts = () => {
         </select>
       </div>
 
-      {/* Table */}
       <div className="soc-card p-0 overflow-x-auto">
         <table className="soc-table">
           <thead>
@@ -75,7 +84,7 @@ const Alerts = () => {
             </tr>
           </thead>
           <tbody>
-            {filtered.map((alert) => (
+            {paged.map((alert) => (
               <tr key={alert.id}>
                 <td className="font-mono text-xs whitespace-nowrap">{formatTimestamp(alert.timestamp)}</td>
                 <td>
@@ -95,6 +104,13 @@ const Alerts = () => {
             ))}
           </tbody>
         </table>
+        <TablePagination
+          totalItems={filtered.length}
+          pageSize={pageSize}
+          currentPage={page}
+          onPageChange={setPage}
+          onPageSizeChange={setPageSize}
+        />
       </div>
     </div>
   );
