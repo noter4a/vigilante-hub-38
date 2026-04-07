@@ -29,7 +29,7 @@ export function AppSidebar() {
       <SidebarContent>
         <div className={`px-4 py-5 ${collapsed ? "px-2" : ""}`}>
           <div className="flex items-center gap-2">
-            <Shield className="h-6 w-6 text-primary flex-shrink-0" />
+            <img src={logo} alt="Logo" className="h-6 w-6 flex-shrink-0" />
             {!collapsed && (
               <span className="text-sm font-semibold tracking-tight">
                 SOC<span className="text-primary">Panel</span>
