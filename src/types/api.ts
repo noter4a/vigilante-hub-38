@@ -12,6 +12,7 @@ export interface Client {
   agentsOnline: number;
   agentsOffline: number;
   criticalVulnerabilities: number;
+  securityScore: number;
 }
 
 export interface ClientSummary {
