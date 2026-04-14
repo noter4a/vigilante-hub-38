@@ -36,4 +36,4 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 # Expor porta 80
 EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["sh", "-c", "sleep 5 && nginx -g 'daemon off;'"]

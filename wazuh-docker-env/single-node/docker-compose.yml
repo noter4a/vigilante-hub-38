@@ -18,8 +18,8 @@ services:
       - wazuh.manager
       - wazuh.indexer
     links:
-      - wazuh.manager:wazuh.manager
-      - wazuh.indexer:wazuh.indexer
+      - wazuh.manager:wazuhmanager
+      - wazuh.indexer:wazuhindexer
 
   # ============================================
   # Wazuh Manager
