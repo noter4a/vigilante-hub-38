@@ -42,7 +42,7 @@ services:
       - "1515:1515"
       - "514:514/udp"
     environment:
-      - INDEXER_URL=https://10.89.0.3:9200
+      - INDEXER_URL=https://wazuh.indexer:9200
       - INDEXER_USERNAME=admin
       - INDEXER_PASSWORD=${INDEXER_PASSWORD:-SecretPassword}
       - FILEBEAT_SSL_VERIFICATION_MODE=full
@@ -114,7 +114,7 @@ services:
     environment:
       - INDEXER_USERNAME=admin
       - INDEXER_PASSWORD=${INDEXER_PASSWORD:-SecretPassword}
-      - WAZUH_API_URL=https://10.89.0.2
+      - WAZUH_API_URL=https://wazuh.manager
       - DASHBOARD_USERNAME=kibanaserver
       - DASHBOARD_PASSWORD=kibanaserver
       - API_USERNAME=wazuh-wui
