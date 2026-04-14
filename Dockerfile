@@ -37,4 +37,4 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 # Expor porta 80
 EXPOSE 80
 
-CMD ["sh", "-c", "export RESOLVER_IP=$(awk 'BEGIN{ORS=\" \"} $1==\"nameserver\" {print $2}' /etc/resolv.conf) && sed -i \"s/RESOLVER_IP/$RESOLVER_IP/g\" /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
+CMD ["nginx", "-g", "daemon off;"]
