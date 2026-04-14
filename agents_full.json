@@ -1,0 +1,80 @@
+[
+  {
+    "os": {
+      "arch": "x86_64",
+      "major": "2023",
+      "name": "Amazon Linux",
+      "platform": "amzn",
+      "uname": "Linux |wazuh.manager |6.6.87.2-microsoft-standard-WSL2 |#1 SMP PREEMPT_DYNAMIC Thu Jun  5 18:30:46 UTC 2025 |x86_64",
+      "version": "2023"
+    },
+    "node_name": "node01",
+    "name": "wazuh.manager",
+    "status": "active",
+    "status_code": 0,
+    "group_config_status": "synced",
+    "registerIP": "127.0.0.1",
+    "lastKeepAlive": "9999-12-31T23:59:59+00:00",
+    "ip": "127.0.0.1",
+    "dateAdd": "2026-04-08T11:46:04+00:00",
+    "version": "Wazuh v4.9.2",
+    "manager": "wazuh.manager",
+    "id": "000"
+  },
+  {
+    "os": {
+      "build": "26100.8037",
+      "major": "10",
+      "minor": "0",
+      "name": "Microsoft Windows 11 Enterprise",
+      "platform": "windows",
+      "uname": "Microsoft Windows 11 Enterprise",
+      "version": "10.0.26100.8037"
+    },
+    "mergedSum": "4a8724b20dee0124ff9656783c490c4e",
+    "node_name": "node01",
+    "name": "PLENA-HZV5703",
+    "group": [
+      "default"
+    ],
+    "status": "active",
+    "configSum": "ab73af41699f13fdd81903b5f23d8d00",
+    "status_code": 0,
+    "group_config_status": "synced",
+    "registerIP": "any",
+    "lastKeepAlive": "2026-04-08T14:33:59+00:00",
+    "ip": "127.0.0.1",
+    "dateAdd": "2026-04-08T13:30:09+00:00",
+    "version": "Wazuh v4.9.2",
+    "manager": "wazuh.manager",
+    "id": "001"
+  },
+  {
+    "os": {
+      "build": "26100.6584",
+      "major": "10",
+      "minor": "0",
+      "name": "Microsoft Windows Server 2025 Standard Evaluation",
+      "platform": "windows",
+      "uname": "Microsoft Windows Server 2025 Standard Evaluation",
+      "version": "10.0.26100.6584"
+    },
+    "mergedSum": "4a8724b20dee0124ff9656783c490c4e",
+    "node_name": "node01",
+    "name": "HV-Lab",
+    "group": [
+      "default"
+    ],
+    "status": "active",
+    "configSum": "ab73af41699f13fdd81903b5f23d8d00",
+    "status_code": 0,
+    "group_config_status": "synced",
+    "registerIP": "any",
+    "lastKeepAlive": "2026-04-08T14:33:55+00:00",
+    "ip": "10.20.20.31",
+    "dateAdd": "2026-04-08T14:29:18+00:00",
+    "version": "Wazuh v4.9.2",
+    "manager": "wazuh.manager",
+    "id": "002"
+  }
+]

@@ -41,7 +41,7 @@
     --sidebar-primary: 235 92% 31%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 250 20% 94%;
-    --sidebar-accent-foreground: 250 30% 30%;
+    --sidebar-accent-foreground: 250 10% 10%;
     --sidebar-border: 220 14% 90%;
     --sidebar-ring: 235 92% 31%;
 
@@ -133,12 +133,15 @@
   .severity-critical {
     @apply text-[hsl(var(--severity-critical))];
   }
+
   .severity-high {
     @apply text-[hsl(var(--severity-high))];
   }
+
   .severity-medium {
     @apply text-[hsl(var(--severity-medium))];
   }
+
   .severity-low {
     @apply text-[hsl(var(--severity-low))];
   }
@@ -146,12 +149,15 @@
   .severity-badge-critical {
     @apply bg-[hsl(var(--severity-critical)/0.15)] text-[hsl(var(--severity-critical))] border border-[hsl(var(--severity-critical)/0.3)];
   }
+
   .severity-badge-high {
     @apply bg-[hsl(var(--severity-high)/0.15)] text-[hsl(var(--severity-high))] border border-[hsl(var(--severity-high)/0.3)];
   }
+
   .severity-badge-medium {
     @apply bg-[hsl(var(--severity-medium)/0.15)] text-[hsl(var(--severity-medium))] border border-[hsl(var(--severity-medium)/0.3)];
   }
+
   .severity-badge-low {
     @apply bg-[hsl(var(--severity-low)/0.15)] text-[hsl(var(--severity-low))] border border-[hsl(var(--severity-low)/0.3)];
   }
@@ -159,6 +165,7 @@
   .status-online {
     @apply text-[hsl(var(--status-online))];
   }
+
   .status-offline {
     @apply text-[hsl(var(--status-offline))];
   }
@@ -170,12 +177,15 @@
   .soc-table {
     @apply w-full text-sm;
   }
+
   .soc-table th {
     @apply text-left text-muted-foreground font-medium text-xs uppercase tracking-wider py-3 px-4 border-b border-border;
   }
+
   .soc-table td {
     @apply py-3 px-4 border-b border-border;
   }
+
   .soc-table tr:hover td {
     @apply bg-accent/50;
   }

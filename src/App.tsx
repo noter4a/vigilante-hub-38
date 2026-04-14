@@ -11,6 +11,12 @@ import ClientDetail from "./pages/ClientDetail";
 import Alerts from "./pages/Alerts";
 import Agents from "./pages/Agents";
 import Vulnerabilities from "./pages/Vulnerabilities";
+import Mitre from "./pages/Mitre";
+import Ndr from "./pages/Ndr";
+import Sca from "./pages/Sca";
+import Fim from "./pages/Fim";
+import Companies from "./pages/Companies";
+import VirusTotal from "./pages/VirusTotal";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,6 +42,12 @@ const App = () => (
                   <Route path="/alerts" element={<Alerts />} />
                   <Route path="/agents" element={<Agents />} />
                   <Route path="/vulnerabilities" element={<Vulnerabilities />} />
+                  <Route path="/mitre" element={<Mitre />} />
+                  <Route path="/ndr" element={<Ndr />} />
+                  <Route path="/sca" element={<Sca />} />
+                  <Route path="/fim" element={<Fim />} />
+                  <Route path="/virustotal" element={<VirusTotal />} />
+                  <Route path="/companies" element={<Companies />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>

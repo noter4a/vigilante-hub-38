@@ -11,6 +11,20 @@ export default defineConfig(({ mode }) => ({
     hmr: {
       overlay: false,
     },
+    proxy: {
+      '/api/wazuh': {
+        target: 'https://127.0.0.1:55000',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api\/wazuh/, '')
+      },
+      '/api/opensearch': {
+        target: 'https://127.0.0.1:9200',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api\/opensearch/, '')
+      }
+    }
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams, useNavigate } from "react-router-dom";
-import { fetchClientSummary } from "@/lib/mock-data";
+import { getWazuhClientSummary } from "@/lib/api-client";
 import {
   severityBadgeClass, riskBadgeClass, riskLabels, severityLabels,
   timeAgo, formatTimestamp, severityTextClass, scoreColorClass, scoreLabel, scoreProgressColor,
@@ -13,7 +13,7 @@ const ClientDetail = () => {
 
   const { data, isLoading } = useQuery({
     queryKey: ["client-summary", id],
-    queryFn: () => fetchClientSummary(id!),
+    queryFn: () => getWazuhClientSummary(id!),
     enabled: !!id,
   });
 
@@ -64,7 +64,7 @@ const ClientDetail = () => {
               />
             </div>
             <p className="text-xs text-muted-foreground">
-              Baseado na proporção de vulnerabilidades mitigadas e severidade das abertas
+              0 = ambiente limpo · acumula pontos por alertas e vulnerabilidades ativas
             </p>
           </div>
         </div>

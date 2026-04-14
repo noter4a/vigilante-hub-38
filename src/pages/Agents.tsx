@@ -1,12 +1,18 @@
 import { useState, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchAgents, fetchClients } from "@/lib/mock-data";
+import { getWazuhAgents } from "@/lib/api-client";
 import { agentStatusClass, formatTimestamp, timeAgo } from "@/lib/soc-utils";
 import { TablePagination } from "@/components/TablePagination";
 
 const Agents = () => {
-  const { data: agents, isLoading } = useQuery({ queryKey: ["agents"], queryFn: fetchAgents });
-  const { data: clients } = useQuery({ queryKey: ["clients"], queryFn: fetchClients });
+  const { data: agents, isLoading } = useQuery({ queryKey: ["agents"], queryFn: getWazuhAgents, refetchInterval: 60_000, staleTime: 30_000 });
+
+  const clients = useMemo(() => {
+    if (!agents) return [];
+    const map = new Map<string, string>();
+    agents.forEach(a => { if (a.clientId && a.clientName) map.set(a.clientId, a.clientName); });
+    return Array.from(map.entries()).map(([id, name]) => ({ id, name })).sort((a, b) => a.name.localeCompare(b.name));
+  }, [agents]);
 
   const [clientFilter, setClientFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");

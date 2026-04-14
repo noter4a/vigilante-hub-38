@@ -1,0 +1,17 @@
+
+> vite_react_shadcn_ts@0.0.0 build
+> vite build
+
+[36mvite v5.4.19 [32mbuilding for production...[36m[39m
+transforming...
+Browserslist: browsers data (caniuse-lite) is 10 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+[32mÔ£ô[39m 1775 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                 [39m[1m[2m  1.69 kB[22m[1m[22m[2m Ôöé gzip:   0.68 kB[22m
+[2mdist/[22m[32massets/logo-S5O8-r5B.png   [39m[1m[2m140.91 kB[22m[1m[22m
+[2mdist/[22m[35massets/index-ch4gBw7P.css  [39m[1m[2m 65.36 kB[22m[1m[22m[2m Ôöé gzip:  11.54 kB[22m
+[2mdist/[22m[36massets/index-BfRz0WtX.js   [39m[1m[2m440.74 kB[22m[1m[22m[2m Ôöé gzip: 139.32 kB[22m
+[32mÔ£ô built in 11.56s[39m

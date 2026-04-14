@@ -1,0 +1,32 @@
+node_modules
+dist
+dist-ssr
+.git
+.gitignore
+
+# Logs e debug
+*.log
+indexer.log
+build_*.txt
+vuln_logs*.txt
+vulns_debug*.txt
+mitre_*.txt
+
+# Wazuh Docker env (não faz parte do frontend)
+wazuh-docker-env
+
+# Cache do Vite
+vite.config.ts.timestamp-*
+
+# Lockfiles binários
+bun.lockb
+
+# Testes
+playwright-fixture.ts
+playwright.config.ts
+
+# Outros
+*.json.bak
+output.json
+os_test.json
+agents_full.json

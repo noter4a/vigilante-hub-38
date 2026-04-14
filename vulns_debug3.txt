@@ -1,0 +1,8 @@
+config error: {
+  "title": "Bad Request",
+  "detail": "'vulnerability-detector' is not one of ['active-response', 'agentless', 'alerts', 'auth', 'client', 'client_buffer', 'cluster', 'command', 'database_output', 'email_alerts', 'global', 'integration', 'labels', 'localfile', 'logging', 'remote', 'reports', 'rootcheck', 'ruleset', 'sca', 'socket', 'syscheck', 'syslog_output', 'vulnerability-detection', 'indexer', 'aws-s3', 'azure-logs', 'cis-cat', 'docker-listener', 'open-scap', 'osquery', 'syscollector']. Failed validating 'enum' in schema: {'enum': ['active-response', 'agentless', 'alerts', 'auth', 'client', 'client_buffer', 'cluster', 'command', 'database_output', 'email_alerts', 'global', 'integration', 'labels', 'localfile', 'logging', 'remote', 'reports', 'rootcheck', 'ruleset', 'sca', 'socket', 'syscheck', 'syslog_output', 'vulnerability-detection', 'indexer', 'aws-s3', 'azure-logs', 'cis-cat', 'docker-listener', 'open-scap', 'osquery', 'syscollector'], 'type': 'string'}. On instance: 'vulnerability-detector'"
+}
+
+├ìndices de vulnerabilidades: health status index                                      uuid                   pri rep docs.count docs.deleted store.size pri.store.size
+green  open   wazuh-states-vulnerabilities-wazuh.manager GWbqxMVXR6CCZrDMV0QJXw   1   0          0            0       208b           208b
+

@@ -44,6 +44,7 @@ export function formatTimestamp(iso: string): string {
 
 export function timeAgo(iso: string): string {
   const diff = Date.now() - new Date(iso).getTime();
+  if (diff < 0) return "Sempre online"; // Trata o caso do agente 000 (Wazuh Manager) que retorna ano 9999
   const mins = Math.floor(diff / 60000);
   if (mins < 60) return `${mins}m atrás`;
   const hours = Math.floor(mins / 60);
@@ -71,6 +72,7 @@ export const severityLabels: Record<Severity, string> = {
   low: "Baixo",
 };
 
+// Score de Segurança: 100 = excelente, 0 = crítico
 export function scoreColorClass(score: number): string {
   if (score >= 80) return "text-green-400";
   if (score >= 60) return "text-yellow-400";

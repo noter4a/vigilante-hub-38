@@ -37,11 +37,13 @@ export interface Alert {
   timestamp: string;
   severity: Severity;
   type: string;
+  description?: string;
   host: string;
   agentId: string;
   clientId: string;
   clientName: string;
   status: AlertStatus;
+  source?: string;
 }
 
 export interface Agent {
@@ -52,12 +54,15 @@ export interface Agent {
   lastCommunication: string;
   clientId: string;
   clientName: string;
+  group: string;
 }
 
 export interface Vulnerability {
   id: string;
   cve: string;
   severity: Severity;
+  description?: string;
+  reference?: string;
   affectedPackage: string;
   affectedHost: string;
   clientId: string;
