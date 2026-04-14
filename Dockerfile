@@ -27,9 +27,9 @@ FROM nginx:alpine
 # Remover configuração padrão do Nginx
 RUN rm /etc/nginx/conf.d/default.conf
 
-# Copiar configuração customizada do Nginx e garantir formato Linux (remover \r do Windows)
+# Copiar configuração customizada do Nginx e garantir formato Linux
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
-RUN sed -i 's/\r$//' /etc/nginx/conf.d/default.conf
+RUN apk add --no-cache dos2unix && dos2unix /etc/nginx/conf.d/default.conf
 
 # Copiar arquivos buildados do stage anterior
 COPY --from=builder /app/dist /usr/share/nginx/html
@@ -37,4 +37,4 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 # Expor porta 80
 EXPOSE 80
 
-CMD ["sh", "-c", "sleep 5 && nginx -g 'daemon off;'"]
+CMD ["sh", "-c", "export RESOLVER_IP=$(awk 'BEGIN{ORS=\" \"} $1==\"nameserver\" {print $2}' /etc/resolv.conf) && sed -i \"s/RESOLVER_IP/$RESOLVER_IP/g\" /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
