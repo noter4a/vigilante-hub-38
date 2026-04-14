@@ -27,8 +27,9 @@ FROM nginx:alpine
 # Remover configuração padrão do Nginx
 RUN rm /etc/nginx/conf.d/default.conf
 
-# Copiar configuração customizada do Nginx
+# Copiar configuração customizada do Nginx e garantir formato Linux (remover \r do Windows)
 COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+RUN sed -i 's/\r$//' /etc/nginx/conf.d/default.conf
 
 # Copiar arquivos buildados do stage anterior
 COPY --from=builder /app/dist /usr/share/nginx/html
