@@ -17,6 +17,9 @@ services:
     depends_on:
       - wazuh.manager
       - wazuh.indexer
+    links:
+      - wazuh.manager:wazuh.manager
+      - wazuh.indexer:wazuh.indexer
 
   # ============================================
   # Wazuh Manager
