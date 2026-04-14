@@ -1,8 +1,0 @@
-
-ÔØî GET /vulnerability/001?limit=2 => Not Found
-
-ÔØî GET /vulnerability/001/summary => Not Found
-
-ÔØî GET /experimental/vulnerability/001 => Not Found
-
-ÔØî GET /manager/configuration?section=vulnerability-detector => Bad Request

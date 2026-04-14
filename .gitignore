@@ -22,3 +22,20 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Debug e anotações temporárias
+build_*.txt
+vuln_logs*.txt
+vulns_debug*.txt
+mitre_*.txt
+check-*.cjs
+check-*.js
+agents_full.json
+os_test.json
+output.json
+
+# Cache do Vite
+vite.config.ts.timestamp-*.mjs
+
+# Lock file binário do Bun (manter apenas o package-lock.json)
+bun.lockb
