@@ -55,13 +55,13 @@ const Sca = () => {
     return Array.from(map.entries()).map(([name, agents]) => ({
       name,
       agents: agents.sort((a, b) => a.avgScore - b.avgScore),
-      avgScore: agents.length > 0 ? Math.round(agents.reduce((s, a) => s + a.avgScore, 0) / agents.length) : 0,
+      avgScore: agents.length > 0 ? Math.round(agents.reduce((s, a) => s + a.avgScore, 0) / agents.length) : 100,
       totalAgents: agents.length,
     })).sort((a, b) => a.avgScore - b.avgScore);
   }, [scaResults]);
 
   const globalAvg = useMemo(() => {
-    if (!scaResults || scaResults.length === 0) return 0;
+    if (!scaResults || scaResults.length === 0) return 100;
     return Math.round(scaResults.reduce((sum, r) => sum + r.avgScore, 0) / scaResults.length);
   }, [scaResults]);
 
@@ -230,7 +230,7 @@ const Sca = () => {
                           {isAgentExpanded && (
                             <div className="bg-muted/20 px-8 py-3 space-y-3">
                               {agent.policies.length === 0 ? (
-                                <p className="text-sm text-muted-foreground">Nenhuma política SCA encontrada para este agente.</p>
+                                <p className="text-sm text-muted-foreground">Nenhuma política SCA encontrada para este agente ou scan inicial ainda em progresso.</p>
                               ) : (
                                 agent.policies.map((policy) => (
                                   <div key={policy.policyId} className="rounded-lg border border-border bg-card p-3">

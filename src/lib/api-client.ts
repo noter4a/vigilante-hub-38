@@ -799,7 +799,7 @@ export const getWazuhSca = async (): Promise<ScaAgentResult[]> => {
 
       const avgScore = mappedPolicies.length > 0
         ? Math.round(mappedPolicies.reduce((sum, p) => sum + p.score, 0) / mappedPolicies.length)
-        : 0;
+        : 100;
 
       // O grupo do agente no Wazuh identifica a empresa/cliente
       const groups: string[] = Array.isArray(agent.group) ? agent.group : [];
@@ -826,7 +826,7 @@ export const getWazuhSca = async (): Promise<ScaAgentResult[]> => {
 // Calcula o score médio global (para usar na Overview)
 export const getGlobalScaScore = async (): Promise<number> => {
   const results = await getWazuhSca();
-  if (results.length === 0) return 0;
+  if (results.length === 0) return 100;
   const total = results.reduce((sum, r) => sum + r.avgScore, 0);
   return Math.round(total / results.length);
 };
