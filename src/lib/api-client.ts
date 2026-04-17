@@ -161,6 +161,16 @@ export const removeAgentFromGroup = async (agentId: string, groupName: string): 
   }
 };
 
+export const deleteWazuhAgent = async (agentId: string): Promise<boolean> => {
+  try {
+    await wazuhApi.delete(`/agents`, { params: { agents_list: agentId, status: 'all', older_than: '0s', purge: true } });
+    return true;
+  } catch (error) {
+    console.error(`Erro ao excluir o agente ${agentId}:`, error);
+    return false;
+  }
+};
+
 export const deleteWazuhGroup = async (groupName: string): Promise<boolean> => {
   try {
     await wazuhApi.delete(`/groups/${groupName}`);
